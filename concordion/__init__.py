@@ -1,3 +1,5 @@
+VERSION = "0.10.1"
+
 def concordion_convert_parameters(*converters):
 	def decorator(functor):
 		def func_call(self, *args):

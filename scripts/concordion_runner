@@ -1,12 +1,15 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
-import os, sys
+import os
 from optparse import OptionParser
 
+import concordion
+from concordion.runners import ConcordionRunner
+
 parser = OptionParser(
-	usage="USAGE: %prog [options] SOURCE_FOLDER",
-	version="0.10.0",
-	description="Run all the pyConcordion tests contained in SOURCE_FOLDER and sub folders."
+	usage="USAGE: %prog [options] SOURCE_DIR SOURCE_FILE",
+	version=concordion.VERSION,
+	description="Run the pyConcordion test referenced by SOURCE_FILE, using all tests from SOURCE_DIR in case of concodrion:run."
 )
 parser.add_option("-o", "--output_folder",
 	help="generate report in OUTPUT_FOLDER",
@@ -26,5 +29,10 @@ if options.output_folder is not None:
 if options.extensions is not None:
 	real_options['extensions'] = options.extensions
 
-from concordion.runners import FolderRunner
-FolderRunner().run(args[0], options=real_options)
+path = args[0]
+dir = path
+file = None
+if not os.path.isdir(path):
+    dir, file = os.path.split(path)
+
+ConcordionRunner().run(dir, file=file, options=real_options)

@@ -1,13 +1,14 @@
 import os, sys
-from impl.java import JavaClassGenerator, Classpath, JavaFileCompiler, JavaTestLauncher
-from impl.configuration import FileConfiguration, HierarchicalConfiguration, DictionnaryConfiguration
-from impl.executors import CommandExecutor
-from impl.xmlrpc import XmlRpcServer
-from impl.files_finders import FolderTestFinder
+from concordion.impl.java import JavaClassGenerator, Classpath, JavaFileCompiler, JavaTestLauncher
+from concordion.impl.configuration import FileConfiguration, HierarchicalConfiguration, DictionnaryConfiguration
+from concordion.impl.executors import CommandExecutor
+from concordion.impl.xmlrpc import XmlRpcServer
+from concordion.impl.files_finders import FolderTestFinder
 
 
-class FolderRunner:
-    def run(self, directory, file=None, options={}):
+class ConcordionRunner:
+    def run(self, directory, file=None, options=None):
+        options = options or {}
         sys.path.append(directory)
         python_files = FolderTestFinder(directory).find_files()
         installation_path = os.path.split(__file__)[0]
