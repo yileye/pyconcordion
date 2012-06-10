@@ -15,3 +15,10 @@ Usage
 ******************
 
 ``$ concordion_runner <path>``
+
+Notable Differences
+******************
+
+1. Uses concordion 1.4.2 instead of 1.4.1
+2. Has a single script to support both executing of folders and individual files
+3. Server side exceptions are captured in the output for easy debugging
