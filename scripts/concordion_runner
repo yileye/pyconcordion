@@ -7,27 +7,27 @@ import concordion
 from concordion.runners import ConcordionRunner
 
 parser = OptionParser(
-	usage="USAGE: %prog [options] SOURCE_DIR SOURCE_FILE",
-	version=concordion.VERSION,
-	description="Run the pyConcordion test referenced by SOURCE_FILE, using all tests from SOURCE_DIR in case of concodrion:run."
+    usage="USAGE: %prog [options] SOURCE_DIR SOURCE_FILE",
+    version=concordion.VERSION,
+    description="Run the pyConcordion test referenced by SOURCE_FILE, using all tests from SOURCE_DIR in case of concodrion:run."
 )
 parser.add_option("-o", "--output_folder",
-	help="generate report in OUTPUT_FOLDER",
-	metavar="OUTPUT_FOLDER"
+    help="generate report in OUTPUT_FOLDER",
+    metavar="OUTPUT_FOLDER"
 )
 parser.add_option("-e", "--extensions",
-	help="Activate concordion extensions. Value 'org.concordion.ext.Extensions' activates concordion-extensions.",
-	metavar="EXTENSION_NAME"
+    help="Activate concordion extensions. Value 'org.concordion.ext.Extensions' activates concordion-extensions.",
+    metavar="EXTENSION_NAME"
 )
 
 (options, args) = parser.parse_args()
 if len(args) != 1:
-	parser.error("Incorrect number of arguments")
+    parser.error("Incorrect number of arguments")
 real_options = {}
 if options.output_folder is not None:
-	real_options['output_folder'] = options.output_folder
+    real_options['output_folder'] = options.output_folder
 if options.extensions is not None:
-	real_options['extensions'] = options.extensions
+    real_options['extensions'] = options.extensions
 
 path = args[0]
 dir = path
