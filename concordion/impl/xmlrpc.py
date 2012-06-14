@@ -1,7 +1,8 @@
 import os, threading, sys
-from SimpleXMLRPCServer import SimpleXMLRPCServer
+from SimpleXMLRPCServer import SimpleXMLRPCServer, SimpleXMLRPCRequestHandler
 
-class XmlRpcServer:
+
+class XmlRpcServer(object):
     def __init__(self, configuration, files):
         self.configuration = configuration
         self.files = files
@@ -28,9 +29,21 @@ class XmlRpcServer:
             pass # In python 2.5 we can't stop the xmlrpc server
 
 
-class XMLRPCServerThread:
+class Handler(SimpleXMLRPCRequestHandler):
+     def _dispatch(self, method, params):
+         try: 
+             value = self.server.funcs[method](*params)
+         except:
+             import traceback
+             traceback.print_exc()
+             raise
+
+         return value
+
+
+class XMLRPCServerThread(object):
     def __init__(self, port):
-        self.server = SimpleXMLRPCServer(("localhost", port), logRequests=False, allow_none=True)
+        self.server = SimpleXMLRPCServer(("localhost", port), requestHandler=Handler, logRequests=False, allow_none=True)
 
     def add_instance(self, instance):
         for key in dir(instance):
