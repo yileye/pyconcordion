@@ -1,3 +1,5 @@
+**This is no longer maintained. I am currently working on https://github.com/johnjiang/pyconcordion2 which is a pure python impementation of concordion.**
+
 ***************
 pyconcordion
 ***************
